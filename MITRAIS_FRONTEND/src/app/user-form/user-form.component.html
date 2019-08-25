@@ -1,0 +1,78 @@
+
+<div class="card my-5">
+    <div class="card-body" [class.disabled]="login">
+      <form (ngSubmit)="onSubmit(userForm)" #userForm="ngForm">
+        <div class="form-group">
+          <input type="text" [(ngModel)]="user.mobileNo" 
+            class="form-control" id="mobileNo" name="mobileNo" placeholder="Mobile Number"
+            required #mobileNo="ngModel">
+        </div>
+        <div [hidden]="!mobileNo.pristine || (mobileNo.pristine && !userForm.submitted)" class="alert alert-danger">Mobile Number is required</div>
+        <div [hidden]="(!mobileNo.pristine && !userForm.submitted) || mobileNo.pristine || (userForm.submitted && validMobileNo)" class="alert alert-danger">Mobile Number format is invalid</div>
+        <div [hidden]="(!mobileNo.pristine && !duplicateMobileNo) || mobileNo.pristine" class="alert alert-danger">Mobile Number is exist</div>
+        <div class="form-group">
+          <input type="text" [(ngModel)]="user.firstName" 
+            class="form-control" id="firstName" name="firstName" placeholder="First Name"
+            required #firstName="ngModel">
+        </div>
+        <div [hidden]="!firstName.pristine || (firstName.pristine && !userForm.submitted)" class="alert alert-danger">First Name is required</div>
+        <div class="form-group">
+          <input type="text" [(ngModel)]="user.lastName" 
+            class="form-control" id="lastName" name="lastName" placeholder="Last Name"
+            required #lastName="ngModel">
+        </div>
+        <div [hidden]="!lastName.pristine || (lastName.pristine && !userForm.submitted)" class="alert alert-danger">Last Name is required</div>
+        <div class="form-group">
+          <label for="dateOfBirth">Date of Birth</label>
+          <div class="row">
+            <div class="col-sm-2">
+                <select class="form-control" name="status" [(ngModel)]="birthday.month" style="width:auto">
+                    <option [ngValue]="undefined" disabled>Months</option>
+                    <option [value]="01" [selected]="birthday.month ==01">January</option>
+                    <option [value]="02" [selected]="birthday.month ==02">February</option>
+                    <option [value]="03" [selected]="birthday.month ==03">March</option>
+                    <option [value]="04" [selected]="birthday.month ==04">April</option>
+                    <option [value]="05" [selected]="birthday.month ==05">May</option>
+                    <option [value]="06" [selected]="birthday.month ==06">June</option>
+                    <option [value]="07" [selected]="birthday.month ==07">July</option>
+                    <option [value]="08" [selected]="birthday.month ==08">August</option>
+                    <option [value]="09" [selected]="birthday.month ==09">September</option>
+                    <option [value]="10" [selected]="birthday.month ==10">October</option>
+                    <option [value]="11" [selected]="birthday.month ==11">November</option>
+                    <option [value]="12" [selected]="birthday.month ==12">December</option>
+                  </select>
+            </div>
+            <div class="col-sm-2">
+              <select class="form-control" name="status" [(ngModel)]="birthday.day" style="width:auto">
+                <option [ngValue]="undefined" disabled>Date</option>
+                <option *ngFor="let x of days" [value]="x" >{{x}}</option>
+              </select>
+            </div>
+            <div class="col-sm-2">
+              <select class="form-control" name="status" [(ngModel)]="birthday.year" style="width:auto">
+                <option [ngValue]="undefined" disabled>Year</option>
+                <option *ngFor="let x of years" [value]="x" >{{x}}</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="custom-radio">
+            <input type="radio" value="M" name="gender" [(ngModel)]="user.gender"> Male
+            <input type="radio" value="F" name="gender" style="margin-left:50px" [(ngModel)]="user.gender"> Female
+        </div>
+        <br/>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="text" [(ngModel)]="user.email" 
+            class="form-control" id="email" name="email" placeholder="Email"
+            required #email="ngModel">
+        </div>
+        <div [hidden]="!email.pristine || (email.pristine && !userForm.submitted)" class="alert alert-danger">Email is required</div>
+        <button type="submit" class="btn btn-info btn-block">Register</button>
+      </form>
+    </div>
+  </div>
+  <div [hidden]="!login" class="form-group">
+    <button type="submit" class="btn btn-info btn-block">Login</button>
+  </div>
+  
